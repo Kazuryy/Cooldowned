@@ -6,11 +6,10 @@
     "overview": "Configurable delay with countdown overlay before next episode autoplay",
     "owner": "kazury",
     "category": "General",
-    "imageUrl": "https://raw.githubusercontent.com/kazury/Cooldowned/main/logo.png",
     "versions": [
       {
         "version": "0.1.1",
-        "changelog": "See release notes",
+        "changelog": "Initial beta release:\n- Configurable delay (0-300s)\n- Visual countdown overlay\n- Per-user settings\n- Admin dashboard configuration\n- Play Now and Cancel buttons\n- Responsive design\n- Compatible with Jellyfin 10.11+",
         "targetAbi": "10.11.0.0",
         "sourceUrl": "https://github.com/Kazuryy/Cooldowned/releases/download/v0.1.1/NextEpisodeDelay-v0.1.1.zip",
         "checksum": "95cb9caba3dceed294aec6cb48c2050e",
