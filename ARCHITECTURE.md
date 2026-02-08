@@ -643,7 +643,7 @@ function skipIntro() {
 
 - [Jellyfin Plugin Development](https://jellyfin.org/docs/general/server/plugins/)
 - [Jellyfin API Documentation](https://api.jellyfin.org/)
-- [.NET 8.0 Documentation](https://docs.microsoft.com/en-us/dotnet/)
+- [.NET 9.0 Documentation](https://docs.microsoft.com/en-us/dotnet/)
 - [MDN Web Docs (JavaScript)](https://developer.mozilla.org/)
 
 ---

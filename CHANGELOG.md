@@ -38,7 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ♿ Accessibility features (focus states, ARIA labels)
 
 ### Technical Details
-- 🏗️ Built with .NET 8.0 and C# latest
+- 🏗️ Built with .NET 9.0 and C# latest
 - 🗄️ Uses EF Core for settings persistence
 - 🎯 Compatible with Jellyfin 10.11.0+
 - 🔄 Hooks into playbackstop events

@@ -16,7 +16,7 @@ Un plugin Jellyfin qui ajoute un délai configurable avant le lancement automati
 ## 📋 Prérequis
 
 - **Jellyfin 10.11.0 ou supérieur**
-- **.NET 8.0 SDK** (pour la compilation)
+- **.NET 9.0 SDK** (pour la compilation)
 - Navigateur web moderne avec support JavaScript
 
 ## 🚀 Installation
@@ -55,7 +55,7 @@ cd Cooldowned/Jellyfin.Plugin.NextEpisodeDelay
 dotnet build -c Release
 
 # Ou créez un package
-dotnet publish -c Release -o bin/Release/net8.0/publish
+dotnet publish -c Release -o bin/Release/net9.0/publish
 ```
 
 #### Étape 2 : Copier les fichiers
@@ -70,7 +70,7 @@ dotnet publish -c Release -o bin/Release/net8.0/publish
 mkdir -p /var/lib/jellyfin/plugins/NextEpisodeDelay
 
 # Copiez les fichiers compilés
-cp -r bin/Release/net8.0/publish/* /var/lib/jellyfin/plugins/NextEpisodeDelay/
+cp -r bin/Release/net9.0/publish/* /var/lib/jellyfin/plugins/NextEpisodeDelay/
 ```
 
 #### Étape 3 : Installer les fichiers client
@@ -247,7 +247,7 @@ Met à jour les paramètres par défaut (admin uniquement).
 
 ### Prérequis de développement
 
-- .NET 8.0 SDK
+- .NET 9.0 SDK
 - Visual Studio 2022, VS Code ou Rider
 - Node.js (pour les outils de développement web)
 

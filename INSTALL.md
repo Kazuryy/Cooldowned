@@ -19,16 +19,16 @@ Ce guide vous accompagne pas à pas dans l'installation du plugin Next Episode D
 
 - Jellyfin 10.11.0 ou supérieur installé
 - Accès root ou sudo
-- .NET 8.0 SDK (pour compiler)
+- .NET 9.0 SDK (pour compiler)
 
 ### Étapes
 
 #### 1. Compiler le plugin
 
 ```bash
-# Installer le SDK .NET 8.0 si nécessaire
+# Installer le SDK .NET 9.0 si nécessaire
 sudo apt update
-sudo apt install dotnet-sdk-8.0
+sudo apt install dotnet-sdk-9.0
 
 # Cloner le dépôt
 cd /tmp
@@ -165,7 +165,7 @@ dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
 
 apt update
-apt install dotnet-sdk-8.0
+apt install dotnet-sdk-9.0
 ```
 
 #### 3. Compiler et installer
@@ -217,7 +217,7 @@ systemctl restart jellyfin
 
 #### 1. Installer .NET SDK
 
-Téléchargez et installez le [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+Téléchargez et installez le [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 
 #### 2. Compiler le plugin
 
@@ -374,7 +374,7 @@ dotnet --list-runtimes
 # Devrait inclure : Microsoft.AspNetCore.App 8.0.x
 
 # Installer si manquant
-sudo apt install aspnetcore-runtime-8.0
+sudo apt install aspnetcore-runtime-9.0
 ```
 
 ### Fichiers JavaScript non chargés

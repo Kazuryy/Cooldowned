@@ -211,7 +211,7 @@ dotnet watch build
 # Ou avec un script
 while inotifywait -e modify *.cs; do
     dotnet build
-    sudo cp bin/Debug/net8.0/* /var/lib/jellyfin/plugins/NextEpisodeDelay/
+    sudo cp bin/Debug/net9.0/* /var/lib/jellyfin/plugins/NextEpisodeDelay/
     sudo systemctl restart jellyfin
 done
 ```

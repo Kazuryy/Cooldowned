@@ -45,7 +45,7 @@ Ce projet adhère au code de conduite Contributor Covenant. En participant, vous
 
 ### Prérequis
 
-- .NET 8.0 SDK
+- .NET 9.0 SDK
 - Git
 - Jellyfin 10.11+ pour les tests
 - Visual Studio 2022, VS Code ou Rider (recommandé)
@@ -93,7 +93,7 @@ Pour tester le plugin en développement :
 
 ```bash
 # Créer un lien symbolique vers votre instance Jellyfin
-ln -s $(pwd)/bin/Debug/net8.0 /var/lib/jellyfin/plugins/NextEpisodeDelay-dev
+ln -s $(pwd)/bin/Debug/net9.0 /var/lib/jellyfin/plugins/NextEpisodeDelay-dev
 
 # Configurer le build pour copier automatiquement
 # Ajoutez dans Jellyfin.Plugin.NextEpisodeDelay.csproj :
