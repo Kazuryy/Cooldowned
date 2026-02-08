@@ -42,7 +42,8 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
         {
             new PluginPageInfo
             {
-                Name = Name,
+                Name = this.Name,
+                DisplayName = "Next Episode Delay",
                 EmbeddedResourcePath = GetType().Namespace + ".Configuration.configPage.html"
             }
         };
