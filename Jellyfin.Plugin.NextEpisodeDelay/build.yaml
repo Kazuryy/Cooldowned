@@ -1,0 +1,18 @@
+---
+name: "Next Episode Delay"
+guid: "a8b9c0d1-e2f3-4a5b-6c7d-8e9f0a1b2c3d"
+version: "1.0.0"
+targetAbi: "10.11.0.0"
+framework: "net8.0"
+owner: "kazury"
+overview: "Add a configurable delay before auto-playing the next episode"
+description: >
+  Next Episode Delay adds a customizable countdown delay before automatically playing
+  the next episode in a series, similar to Plex's behavior. Users can configure their
+  preferred delay duration or disable the feature entirely.
+category: "General"
+artifacts:
+  - "Jellyfin.Plugin.NextEpisodeDelay.dll"
+build_type: "dotnet"
+dotnet_configuration: "Release"
+dotnet_framework: "net8.0"

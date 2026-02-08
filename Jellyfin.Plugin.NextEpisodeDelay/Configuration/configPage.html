@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Next Episode Delay</title>
+</head>
+<body>
+    <div id="NextEpisodeDelayConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-checkbox">
+        <div data-role="content">
+            <div class="content-primary">
+                <form id="NextEpisodeDelayConfigForm">
+                    <div class="verticalSection">
+                        <h2 class="sectionTitle">Next Episode Delay Configuration</h2>
+                        <p>Configure the default delay before automatically playing the next episode.</p>
+                    </div>
+
+                    <div class="verticalSection">
+                        <h3 class="checkboxListLabel">Default Settings</h3>
+                        <p class="fieldDescription">These settings apply to all users who haven't customized their preferences.</p>
+
+                        <div class="inputContainer">
+                            <label class="inputLabel inputLabelUnfocused" for="enabledByDefault">Enable by default</label>
+                            <input is="emby-checkbox" type="checkbox" id="enabledByDefault" name="enabledByDefault" />
+                            <span class="checkboxFieldDescription checkboxFieldDescription-below">Enable the next episode delay for all users by default</span>
+                        </div>
+
+                        <div class="inputContainer">
+                            <label class="inputLabel" for="defaultDelaySeconds">Default delay (seconds)</label>
+                            <input is="emby-input" type="number" id="defaultDelaySeconds" name="defaultDelaySeconds" min="0" max="300" step="5" />
+                            <div class="fieldDescription">Number of seconds to wait before playing the next episode (0 to disable, max 300)</div>
+                        </div>
+
+                        <div class="selectContainer">
+                            <label class="inputLabel" for="delayPreset">Quick Presets</label>
+                            <select is="emby-select" id="delayPreset" name="delayPreset" class="emby-select-withcolor emby-select">
+                                <option value="0">Disabled (0s)</option>
+                                <option value="10">10 seconds</option>
+                                <option value="20">20 seconds</option>
+                                <option value="30" selected>30 seconds (Recommended)</option>
+                                <option value="45">45 seconds</option>
+                                <option value="60">60 seconds</option>
+                                <option value="90">90 seconds</option>
+                                <option value="120">120 seconds</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="verticalSection">
+                        <h3>User Settings</h3>
+                        <p class="fieldDescription">Users can customize their own delay settings from their profile or playback settings page.</p>
+                        <p class="fieldDescription"><strong>Note:</strong> Individual user settings will override the default configuration.</p>
+                    </div>
+
+                    <div>
+                        <button is="emby-button" type="submit" class="raised button-submit block">
+                            <span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            var NextEpisodeDelayConfig = {
+                pluginId: "a8b9c0d1-e2f3-4a5b-6c7d-8e9f0a1b2c3d",
+
+                loadConfiguration: function () {
+                    Dashboard.showLoadingMsg();
+
+                    ApiClient.getPluginConfiguration(NextEpisodeDelayConfig.pluginId).then(function (config) {
+                        document.querySelector('#enabledByDefault').checked = config.EnabledByDefault || false;
+                        document.querySelector('#defaultDelaySeconds').value = config.DefaultDelaySeconds || 30;
+
+                        Dashboard.hideLoadingMsg();
+                    });
+                },
+
+                saveConfiguration: function () {
+                    Dashboard.showLoadingMsg();
+
+                    var config = {
+                        EnabledByDefault: document.querySelector('#enabledByDefault').checked,
+                        DefaultDelaySeconds: parseInt(document.querySelector('#defaultDelaySeconds').value) || 30
+                    };
+
+                    ApiClient.updatePluginConfiguration(NextEpisodeDelayConfig.pluginId, config).then(function (result) {
+                        Dashboard.processPluginConfigurationUpdateResult(result);
+                    });
+                }
+            };
+
+            document.querySelector('#NextEpisodeDelayConfigPage')
+                .addEventListener('pageshow', function () {
+                    NextEpisodeDelayConfig.loadConfiguration();
+                });
+
+            document.querySelector('#NextEpisodeDelayConfigForm')
+                .addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    NextEpisodeDelayConfig.saveConfiguration();
+                    return false;
+                });
+
+            // Preset selector
+            document.querySelector('#delayPreset')
+                .addEventListener('change', function (e) {
+                    document.querySelector('#defaultDelaySeconds').value = e.target.value;
+                });
+        </script>
+    </div>
+</body>
+</html>

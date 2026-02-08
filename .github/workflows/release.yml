@@ -1,0 +1,101 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Extract version from tag
+      id: version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+    - name: Restore dependencies
+      run: dotnet restore Jellyfin.Plugin.NextEpisodeDelay/Jellyfin.Plugin.NextEpisodeDelay.csproj
+
+    - name: Build
+      run: dotnet build Jellyfin.Plugin.NextEpisodeDelay/Jellyfin.Plugin.NextEpisodeDelay.csproj --configuration Release --no-restore
+
+    - name: Publish
+      run: dotnet publish Jellyfin.Plugin.NextEpisodeDelay/Jellyfin.Plugin.NextEpisodeDelay.csproj --configuration Release --output ./publish
+
+    - name: Create release package
+      run: |
+        cd publish
+        zip -r ../NextEpisodeDelay-v${{ steps.version.outputs.VERSION }}.zip *
+        cd ..
+
+    - name: Generate MD5 checksum
+      id: checksum
+      run: |
+        MD5SUM=$(md5sum NextEpisodeDelay-v${{ steps.version.outputs.VERSION }}.zip | awk '{print $1}')
+        echo "MD5=$MD5SUM" >> $GITHUB_OUTPUT
+        echo "MD5 Checksum: $MD5SUM"
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ steps.version.outputs.VERSION }}
+        body: |
+          ## Next Episode Delay v${{ steps.version.outputs.VERSION }}
+
+          ### Installation
+
+          #### Via Repository (Recommended)
+          1. Add repository: `https://raw.githubusercontent.com/${{ github.repository_owner }}/jellyfin-plugin-repo/main/manifest.json`
+          2. Dashboard → Plugins → Catalog
+          3. Install "Next Episode Delay"
+
+          #### Manual Installation
+          1. Download `NextEpisodeDelay-v${{ steps.version.outputs.VERSION }}.zip`
+          2. Extract to `/var/lib/jellyfin/plugins/NextEpisodeDelay/`
+          3. Restart Jellyfin
+
+          ### MD5 Checksum
+          ```
+          ${{ steps.checksum.outputs.MD5 }}
+          ```
+
+          ### Changelog
+          See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)
+
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./NextEpisodeDelay-v${{ steps.version.outputs.VERSION }}.zip
+        asset_name: NextEpisodeDelay-v${{ steps.version.outputs.VERSION }}.zip
+        asset_content_type: application/zip
+
+    - name: Comment checksum for manifest
+      run: |
+        echo "::notice title=MD5 Checksum::${{ steps.checksum.outputs.MD5 }}"
+        echo ""
+        echo "✅ Release created successfully!"
+        echo ""
+        echo "📝 Update the manifest.json in jellyfin-plugin-repo with:"
+        echo "   \"version\": \"${{ steps.version.outputs.VERSION }}\""
+        echo "   \"checksum\": \"${{ steps.checksum.outputs.MD5 }}\""
+        echo "   \"sourceUrl\": \"https://github.com/${{ github.repository }}/releases/download/v${{ steps.version.outputs.VERSION }}/NextEpisodeDelay-v${{ steps.version.outputs.VERSION }}.zip\""
+        echo "   \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\""

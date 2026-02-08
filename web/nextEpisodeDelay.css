@@ -1,0 +1,240 @@
+/**
+ * Next Episode Delay - Styles
+ * Overlay and countdown styling compatible with Jellyfin theme
+ */
+
+/* Overlay Container */
+.nextEpisodeDelay-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.nextEpisodeDelay-overlay.nextEpisodeDelay-visible {
+    opacity: 1;
+}
+
+/* Content Container */
+.nextEpisodeDelay-content {
+    background: rgba(16, 16, 16, 0.95);
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform: scale(0.9);
+    transition: transform 0.3s ease-in-out;
+}
+
+.nextEpisodeDelay-visible .nextEpisodeDelay-content {
+    transform: scale(1);
+}
+
+/* Header */
+.nextEpisodeDelay-header {
+    margin-bottom: 30px;
+}
+
+.nextEpisodeDelay-title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+/* Countdown Container */
+.nextEpisodeDelay-countdown-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 30px;
+}
+
+/* Countdown SVG */
+.nextEpisodeDelay-countdown-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.nextEpisodeDelay-countdown-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 6;
+}
+
+.nextEpisodeDelay-countdown-progress {
+    fill: none;
+    stroke: #00a4dc;
+    stroke-width: 6;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear;
+}
+
+/* Countdown Text */
+.nextEpisodeDelay-countdown-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.nextEpisodeDelay-countdown-number {
+    font-size: 48px;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1;
+}
+
+/* Message */
+.nextEpisodeDelay-message {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+}
+
+.nextEpisodeDelay-seconds {
+    font-weight: 600;
+    color: #00a4dc;
+}
+
+/* Buttons */
+.nextEpisodeDelay-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nextEpisodeDelay-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    outline: none;
+}
+
+.nextEpisodeDelay-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.nextEpisodeDelay-button:active {
+    transform: translateY(0);
+}
+
+.nextEpisodeDelay-button-primary {
+    background: #00a4dc;
+    color: #ffffff;
+}
+
+.nextEpisodeDelay-button-primary:hover {
+    background: #0094c8;
+}
+
+.nextEpisodeDelay-button-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nextEpisodeDelay-button-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Material Icons */
+.nextEpisodeDelay-button .material-icons {
+    font-size: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .nextEpisodeDelay-content {
+        padding: 30px 20px;
+    }
+
+    .nextEpisodeDelay-title {
+        font-size: 20px;
+    }
+
+    .nextEpisodeDelay-countdown-container {
+        width: 120px;
+        height: 120px;
+    }
+
+    .nextEpisodeDelay-countdown-number {
+        font-size: 36px;
+    }
+
+    .nextEpisodeDelay-message {
+        font-size: 16px;
+    }
+
+    .nextEpisodeDelay-button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+
+    .nextEpisodeDelay-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nextEpisodeDelay-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Dark Theme Adjustments */
+@media (prefers-color-scheme: dark) {
+    .nextEpisodeDelay-content {
+        background: rgba(20, 20, 20, 0.98);
+    }
+}
+
+/* Accessibility */
+.nextEpisodeDelay-button:focus-visible {
+    outline: 2px solid #00a4dc;
+    outline-offset: 2px;
+}
+
+/* Animation for countdown pulse */
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+}
+
+.nextEpisodeDelay-countdown-text {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Smooth transitions */
+* {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

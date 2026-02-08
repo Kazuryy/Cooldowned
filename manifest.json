@@ -1,0 +1,21 @@
+[
+  {
+    "guid": "a8b9c0d1-e2f3-4a5b-6c7d-8e9f0a1b2c3d",
+    "name": "Next Episode Delay",
+    "description": "Add a configurable delay before auto-playing the next episode, similar to Plex behavior. Features a visual countdown overlay with Play Now and Cancel options.",
+    "overview": "Configurable delay with countdown overlay before next episode autoplay",
+    "owner": "kazury",
+    "category": "General",
+    "imageUrl": "https://raw.githubusercontent.com/kazury/Cooldowned/main/logo.png",
+    "versions": [
+      {
+        "version": "1.0.0",
+        "changelog": "Initial release:\n- Configurable delay (0-300s)\n- Visual countdown overlay\n- Per-user settings\n- Admin dashboard configuration\n- Play Now and Cancel buttons\n- Responsive design\n- Compatible with Jellyfin 10.11+",
+        "targetAbi": "10.11.0.0",
+        "sourceUrl": "https://github.com/kazury/Cooldowned/releases/download/v1.0.0/NextEpisodeDelay-v1.0.0.zip",
+        "checksum": "TO_BE_GENERATED_ON_RELEASE",
+        "timestamp": "2026-02-08T00:00:00Z"
+      }
+    ]
+  }
+]
