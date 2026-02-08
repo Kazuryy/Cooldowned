@@ -15,12 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Configuration\configPage.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
+    <EmbeddedResource Include="Configuration\configPage.html" />
     <EmbeddedResource Include="..\web\nextEpisodeDelay.js" />
     <EmbeddedResource Include="..\web\nextEpisodeDelay.css" />
   </ItemGroup>
