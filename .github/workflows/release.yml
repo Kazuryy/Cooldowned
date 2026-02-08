@@ -76,14 +76,37 @@ jobs:
         draft: false
         prerelease: false
 
-    - name: Comment checksum for manifest
+    - name: Update manifest.json
       run: |
-        echo "::notice title=MD5 Checksum::${{ steps.checksum.outputs.MD5 }}"
-        echo ""
-        echo "✅ Release created successfully!"
-        echo ""
-        echo "📝 Update the manifest.json in jellyfin-plugin-repo with:"
-        echo "   \"version\": \"${{ steps.version.outputs.VERSION }}\""
-        echo "   \"checksum\": \"${{ steps.checksum.outputs.MD5 }}\""
-        echo "   \"sourceUrl\": \"https://github.com/${{ github.repository }}/releases/download/v${{ steps.version.outputs.VERSION }}/NextEpisodeDelay-v${{ steps.version.outputs.VERSION }}.zip\""
-        echo "   \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\""
+        # Install jq if not available
+        sudo apt-get update && sudo apt-get install -y jq
+
+        # Get current timestamp
+        TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+        # Update manifest.json with new version
+        jq --arg version "${{ steps.version.outputs.VERSION }}" \
+           --arg checksum "${{ steps.checksum.outputs.MD5 }}" \
+           --arg timestamp "$TIMESTAMP" \
+           --arg url "https://github.com/${{ github.repository }}/releases/download/v${{ steps.version.outputs.VERSION }}/NextEpisodeDelay-v${{ steps.version.outputs.VERSION }}.zip" \
+           '.[0].versions[0] = {
+              "version": $version,
+              "changelog": "See release notes",
+              "targetAbi": "10.11.0.0",
+              "sourceUrl": $url,
+              "checksum": $checksum,
+              "timestamp": $timestamp
+           }' manifest.json > manifest.json.tmp && mv manifest.json.tmp manifest.json
+
+        echo "✅ manifest.json updated with:"
+        echo "   Version: ${{ steps.version.outputs.VERSION }}"
+        echo "   Checksum: ${{ steps.checksum.outputs.MD5 }}"
+        echo "   Timestamp: $TIMESTAMP"
+
+    - name: Commit and push manifest
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add manifest.json
+        git commit -m "chore: Update manifest.json for v${{ steps.version.outputs.VERSION }}" || echo "No changes to commit"
+        git push origin HEAD:master || echo "Failed to push, continuing anyway"
