@@ -8,12 +8,12 @@
     "category": "General",
     "versions": [
       {
-        "version": "0.1.1",
-        "changelog": "Initial beta release:\n- Configurable delay (0-300s)\n- Visual countdown overlay\n- Per-user settings\n- Admin dashboard configuration\n- Play Now and Cancel buttons\n- Responsive design\n- Compatible with Jellyfin 10.11+",
+        "version": "0.1.2",
+        "changelog": "See release notes",
         "targetAbi": "10.11.0.0",
-        "sourceUrl": "https://github.com/Kazuryy/Cooldowned/releases/download/v0.1.1/NextEpisodeDelay-v0.1.1.zip",
-        "checksum": "95cb9caba3dceed294aec6cb48c2050e",
-        "timestamp": "2026-02-08T19:33:44Z"
+        "sourceUrl": "https://github.com/Kazuryy/Cooldowned/releases/download/v0.1.2/NextEpisodeDelay-v0.1.2.zip",
+        "checksum": "c690a83e17263cb474b8697f0c8e16a9",
+        "timestamp": "2026-02-08T20:27:33Z"
       }
     ]
   }
